@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj": {}
+  },
+  "projects": {
+    "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj",
+        "projectName": "PinterestScraperCsharp",
+        "projectPath": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj",
+        "packagesPath": "/home/engenier/.nuget/packages/",
+        "outputPath": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/engenier/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "PuppeteerSharp": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
