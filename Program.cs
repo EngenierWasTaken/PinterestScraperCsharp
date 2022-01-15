@@ -8,7 +8,9 @@ namespace PinterestScraper{
 
                 //esempio di chiamata della funzione
                 var kek = await Scrappy(80, "Instagram");
-                
+                for (int item = 0; item < kek.Length; item++){
+                    Console.WriteLine(kek[item]);
+                }
             static async Task<String[]> Scrappy(int depth, string keyword){
                 // depth: all'incirca il numero di elementi da caricare
                 // il termine di ricerca
@@ -24,9 +26,7 @@ namespace PinterestScraper{
                 );
                 await page.GoToAsync(pageUrl);
                 await page.WaitForSelectorAsync("div.Collection");
-                var itemsInPage = await page.QuerySelectorAllAsync(
-                    "div.Collection-Item"
-                    );
+                ElementHandle[] itemsInPage = new ElementHandle[0];
                 while(itemsInPage.Length <= depth){
                     await page.EvaluateExpressionAsync(
                          "window.scrollTo(0,document.body.scrollHeight)"
