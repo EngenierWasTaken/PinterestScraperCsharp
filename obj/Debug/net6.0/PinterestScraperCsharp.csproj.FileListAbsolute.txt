@@ -25,3 +25,4 @@
 /home/engenier/Documenti/GitHub/PinterestScraperCsharp/bin/Debug/net6.0/PuppeteerSharp.dll
 /home/engenier/Documenti/GitHub/PinterestScraperCsharp/bin/Debug/net6.0/ICSharpCode.SharpZipLib.dll
 /home/engenier/Documenti/GitHub/PinterestScraperCsharp/obj/Debug/net6.0/PinterestScraperCsharp.csproj.CopyComplete
+/home/engenier/Documenti/GitHub/PinterestScraperCsharp/bin/Debug/net6.0/HtmlAgilityPack.dll

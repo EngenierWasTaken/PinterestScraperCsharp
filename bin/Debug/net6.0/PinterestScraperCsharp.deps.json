@@ -8,10 +8,19 @@
     ".NETCoreApp,Version=v6.0": {
       "PinterestScraperCsharp/1.0.0": {
         "dependencies": {
+          "HtmlAgilityPack": "1.11.40",
           "PuppeteerSharp": "6.1.0"
         },
         "runtime": {
           "PinterestScraperCsharp.dll": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.40": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.40.0",
+            "fileVersion": "1.11.40.0"
+          }
         }
       },
       "Microsoft.AspNetCore.WebUtilities/2.0.2": {
@@ -923,6 +932,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "HtmlAgilityPack/1.11.40": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-55VAT1E4c53Omzqfiph/hfUmuVobJvKCSIrVVx1UCtBybouBp+vv1sj+5C+Ip/bDycF9XITrjC0Cdz5Ux+iw5w==",
+      "path": "htmlagilitypack/1.11.40",
+      "hashPath": "htmlagilitypack.1.11.40.nupkg.sha512"
     },
     "Microsoft.AspNetCore.WebUtilities/2.0.2": {
       "type": "package",

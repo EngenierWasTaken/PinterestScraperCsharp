@@ -11,7 +11,7 @@ namespace PinterestScraper{
                 //esempio di chiamata della funzione
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                var kek = await Scrappy(16, "Instagram");
+                var kek = await Scrappy(100, "Instagram");
                 /*for (int item = 0; item < kek.Length; item++){
                     Console.WriteLine(kek[item]);
                 }*/
@@ -58,7 +58,7 @@ namespace PinterestScraper{
                 
                 var browser = await Puppeteer.LaunchAsync(new LaunchOptions
                     {
-                        Headless = true,
+                        Headless = false,
                     }
                 );
                 
@@ -74,10 +74,7 @@ namespace PinterestScraper{
                 stop.Start();
                 
                 await page.GoToAsync(pageUrl);
-                await page.WaitForSelectorAsync("div.Collection-Item");
-                await page.EvaluateExpressionAsync(
-                    "window.scrollBy(0,document.body.ScrollHeight)"
-                );
+                
                 stop.Stop();
                 Console.WriteLine("Tempo SET PAGE: ");
                 WriteTime(stop);
@@ -92,10 +89,15 @@ namespace PinterestScraper{
                     Stopwatch stop = new Stopwatch();
                     stop.Start();
                 
-                    
-                    itemsInPage = await page.QuerySelectorAllAsync(
-                        "div.Collection-Item");
-                    
+                    await page.WaitForSelectorAsync("div.Collection");
+                    while (itemsInPage.Length < depth){
+                        await page.EvaluateExpressionAsync(
+                            "window.scrollTo(0,document.body.scrollHeight);"
+                        );
+                        itemsInPage = await page.QuerySelectorAllAsync(
+                            "div.Collection-Item");
+                        Console.WriteLine(itemsInPage.Length);
+                    }
                     stop.Stop();
                     Console.WriteLine("Tempo GET ITEMS: ");
                     WriteTime(stop);
@@ -139,7 +141,7 @@ namespace PinterestScraper{
                 
                 ElementHandle[] itemsInPage = new ElementHandle[0];
                 itemsInPage = await GetItemsInPage(
-                    itemsInPage, page, 100
+                    itemsInPage, page, depth
                 );
 
                 string[] allImagesURLs = new string[itemsInPage.Length];
