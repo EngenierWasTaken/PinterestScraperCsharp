@@ -5589,19 +5589,19 @@
     ]
   },
   "packageFolders": {
-    "/home/engenier/.nuget/packages/": {}
+    "C:\\Users\\engen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj",
+      "projectUniqueName": "C:\\Users\\engen\\Documents\\GitHub\\PinterestScraperCsharp\\PinterestScraperCsharp.csproj",
       "projectName": "PinterestScraperCsharp",
-      "projectPath": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/PinterestScraperCsharp.csproj",
-      "packagesPath": "/home/engenier/.nuget/packages/",
-      "outputPath": "/home/engenier/Documenti/GitHub/PinterestScraperCsharp/obj/",
+      "projectPath": "C:\\Users\\engen\\Documents\\GitHub\\PinterestScraperCsharp\\PinterestScraperCsharp.csproj",
+      "packagesPath": "C:\\Users\\engen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\engen\\Documents\\GitHub\\PinterestScraperCsharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/engenier/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\engen\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -5649,7 +5649,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

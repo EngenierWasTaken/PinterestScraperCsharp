@@ -11,7 +11,7 @@ namespace PinterestScraper{
                 //esempio di chiamata della funzione
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                var kek = await Scrappy(40, "Hig res");
+                var kek = await Scrappy(150, "iphone");
                 for (int item = 0; item < kek.Length; item++){
                     Console.WriteLine(kek[item]);
                 }
@@ -141,9 +141,17 @@ namespace PinterestScraper{
                                 "e => e.srcset", image
                             );
                         string[] temp = content.ToString().Split(",");
-                        allImagesURLs[item] = temp[1];
-                        a += 1;    
+                        if (a < itemsInPage.Length){
+                            if (temp.Length == 2){
+                                allImagesURLs[item] = temp[1];
+                            }
+                            else{
+                                allImagesURLs[item] = temp[0];
+                            }
+                        }
+                        a += 1; 
                     }
+                        
                     Console.WriteLine("Immagini Scrapate: " + a);
                     stop.Stop();
                     Console.WriteLine("Tempo GET IMAGES: ");
