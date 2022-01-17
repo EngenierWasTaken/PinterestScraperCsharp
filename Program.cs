@@ -11,12 +11,11 @@ namespace PinterestScraper{
                 //esempio di chiamata della funzione
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                var kek = await Scrappy(100, "Instagram");
-                /*for (int item = 0; item < kek.Length; item++){
+                var kek = await Scrappy(40, "Hig res");
+                for (int item = 0; item < kek.Length; item++){
                     Console.WriteLine(kek[item]);
-                }*/
+                }
                 stopWatch.Stop();
-                
                 // Get the elapsed time as a TimeSpan value.
                 Console.WriteLine("FINE PROGRAMMA");
                 
@@ -44,7 +43,8 @@ namespace PinterestScraper{
                 await page.SetViewportAsync(
                     new ViewPortOptions{Width = 1920, Height = 1080}
                 );
-                
+                await page.SetUserAgentAsync(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36 WAIT_UNTIL=load");
                 stop.Stop();
                 Console.WriteLine("Tempo Inizializzazione PAGE: ");
                 WriteTime(stop);
@@ -55,13 +55,11 @@ namespace PinterestScraper{
             static async Task<Browser> InizializeBrowser(){
                 Stopwatch stop = new Stopwatch();
                 stop.Start();
-                
                 var browser = await Puppeteer.LaunchAsync(new LaunchOptions
                     {
-                        Headless = false,
+                        Headless = true,
                     }
                 );
-                
                 stop.Stop();
                 Console.WriteLine("Tempo INIZIALIZZAZIONE BROWSER: ");
                 WriteTime(stop);
@@ -69,12 +67,13 @@ namespace PinterestScraper{
                 return browser;
             }
 
-            static async Task<Page> SetPage(string pageUrl, Page page){
+            static async Task<Page> SetPage(string pageURL, Page page){
                 Stopwatch stop = new Stopwatch();
                 stop.Start();
+
                 
-                await page.GoToAsync(pageUrl);
-                
+                await page.GoToAsync(pageURL, WaitUntilNavigation.Networkidle2);
+                await page.WaitForSelectorAsync("input[type='text']");
                 stop.Stop();
                 Console.WriteLine("Tempo SET PAGE: ");
                 WriteTime(stop);
@@ -88,15 +87,13 @@ namespace PinterestScraper{
                 ){
                     Stopwatch stop = new Stopwatch();
                     stop.Start();
-                
-                    await page.WaitForSelectorAsync("div.Collection");
+                    await page.WaitForSelectorAsync("div.Collection-Item");
                     while (itemsInPage.Length < depth){
                         await page.EvaluateExpressionAsync(
                             "window.scrollTo(0,document.body.scrollHeight);"
                         );
                         itemsInPage = await page.QuerySelectorAllAsync(
                             "div.Collection-Item");
-                        Console.WriteLine(itemsInPage.Length);
                     }
                     stop.Stop();
                     Console.WriteLine("Tempo GET ITEMS: ");
@@ -104,12 +101,36 @@ namespace PinterestScraper{
                     Console.WriteLine(GC.GetTotalMemory(true));
                     return itemsInPage;
                 }
+            static async Task<Page> LogIn(Page page, String loginURL){
+                await page.GoToAsync(loginURL, WaitUntilNavigation.Networkidle2);
+                await page.WaitForSelectorAsync(
+                    "input[name='id']"
+                );
 
+                await page.TypeAsync(
+                    "input[name='id']", "qthaixzpdwphyvfsma@nvhrw.com"
+                );
+                Thread.Sleep(1000);
+                await page.WaitForSelectorAsync(
+                    "input[name='password']"
+                );
+
+                await page.TypeAsync(
+                    "input[name='password']", "Yeet123!"
+                );
+                Thread.Sleep(1000);
+                await page.WaitForSelectorAsync(
+                    "button[type='submit']"
+                );
+                await page.ClickAsync("button[type='submit']");
+                return page;
+            }
             static async Task<String[]> GetAllImages(
                     ElementHandle[] itemsInPage, Page page,
                     string[] allImagesURLs){
                     Stopwatch stop = new Stopwatch();
                     stop.Start();
+                    var a = 0;
                     for (int item = 0; item < itemsInPage.Length; item++){
                         var image = await itemsInPage[item]
                             .QuerySelectorAllAsync(
@@ -117,16 +138,18 @@ namespace PinterestScraper{
                             );
                         var content = await page
                             .EvaluateFunctionAsync(
-                                "e => e.src", image
+                                "e => e.srcset", image
                             );
-                        allImagesURLs[item] =  content.ToString();
+                        string[] temp = content.ToString().Split(",");
+                        allImagesURLs[item] = temp[1];
+                        a += 1;    
                     }
+                    Console.WriteLine("Immagini Scrapate: " + a);
                     stop.Stop();
                     Console.WriteLine("Tempo GET IMAGES: ");
                     WriteTime(stop);
                     Console.WriteLine(GC.GetTotalMemory(true));
                     return allImagesURLs;
-
                 }
 
             static async Task<String[]> Scrappy(int depth, string keyword){
@@ -134,16 +157,19 @@ namespace PinterestScraper{
                 // il termine di ricerca
                 var browser = await InizializeBrowser(); 
                 var page = await InizializePage(browser);
-                var pageUrl = String.Format(
-                    "https://www.pinterest.com/search/pins/?q={0}&rs=typed&term_meta%5B%5D={0}%7Ctyped", keyword
+                var pageURL = String.Format(
+                    "https://www.pinterest.it/search/pins/?q={0}&rs=typed&term_meta%5B%5D={0}%7Ctyped", keyword
                 );
-                page = await SetPage(pageUrl, page);
+                /*var loginURL = String.Format(
+                    "https://www.pinterest.it/login/"
+                );
+                page = await LogIn(page, loginURL);*/
                 
+                page = await SetPage(pageURL, page);
                 ElementHandle[] itemsInPage = new ElementHandle[0];
                 itemsInPage = await GetItemsInPage(
                     itemsInPage, page, depth
                 );
-
                 string[] allImagesURLs = new string[itemsInPage.Length];
                 allImagesURLs = await GetAllImages(
                     itemsInPage, page, allImagesURLs
